@@ -26,6 +26,11 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'davidhalter/jedi-vim'
 
+" Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'isnowfy/python-vim-instant-markdown'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -207,6 +212,11 @@ let g:jedi#documentation_command    = "K"
 let g:jedi#usages_command           = "<leader>n"
 let g:jedi#completions_command      = "<S-Space>"
 let g:jedi#rename_command           = "<leader>r"
+
+" *********************************************
+" Markdown
+" *********************************************
+map <leader>md :Instantmd<CR>  " Preview Shortcut
 
 " *********************************************
 " Color-theme
