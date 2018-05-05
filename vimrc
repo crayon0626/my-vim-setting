@@ -112,7 +112,7 @@ nnoremap <space> za
 " NERDTree
 " *********************************************
 "autocmd vimenter * NERDTree   " Open NERDTree while launch vim
-map <leader>tr :NERDTreeToggle<CR>  " Shortcut
+map <C-l> :NERDTreeToggle<CR>  " Shortcut
 
 " *********************************************
 " Tagbar
@@ -255,15 +255,17 @@ func SetTitle()
  else
   call setline(1, "/*************************************************************************")
   call append(line("."), " > File Name: ".expand("%"))
-  call append(line(".")+1, " > Author: ")
-  call append(line(".")+2, " > Mail: ")
-  call append(line(".")+3, " > Created Time: ".strftime("%c"))
-  call append(line(".")+4, " ************************************************************************/")
+  "call append(line(".")+1, " > Author: ")
+  "call append(line(".")+2, " > Mail: ")
+  call append(line(".")+1, " > Created Time: ".strftime("%c"))
+  call append(line(".")+2, " > Description:")
+  call append(line(".")+3, "")
+  call append(line(".")+4, "*************************************************************************/")
   call append(line(".")+5, "")
  endif
 
  if expand("%:e") == 'cpp'
-  call append(line(".")+6, "#include<iostream>")
+  call append(line(".")+6, "#include <iostream>")
   call append(line(".")+7, "using namespace std;")
   call append(line(".")+8, "")
  endif
@@ -281,17 +283,18 @@ endfunc
 autocmd BufNewFile * normal G
 
 " *********************************************
-" Ctrl+B: compile and run
+" Ctrl+R: compile and run
 " *********************************************
-map <C-B> :call CompileRunGcc()<CR>
+map <C-R> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
  exec "w"
  if &filetype == 'c'
-  exec "!g++ % -o %<"
+  exec "!clang++ % -o %<"
   exec "!time ./%<"
  elseif &filetype == 'cpp'
-  exec "!g++ % -o %<"
+  exec "!clang++ -std=gnu++11 -stdlib=libc++ % -o %<"
   exec "!time ./%<"
+  exec "!rm ./%<"
  elseif &filetype == 'sh'
   exec "!time bash %"
  elseif &filetype == 'python'
